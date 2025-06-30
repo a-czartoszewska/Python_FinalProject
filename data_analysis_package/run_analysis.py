@@ -118,7 +118,7 @@ def run_analysis(args):
     # perform corr analysis
     corr_analysis(args, df_terr)
 
-def main(args):
+def main():
     parser = argparse.ArgumentParser(description='Run final project analysis')
     parser.add_argument('data_folder', help='Path to the folder containing the data')
     parser.add_argument('output_folder', help='Path to the folder to save output plots and results')
