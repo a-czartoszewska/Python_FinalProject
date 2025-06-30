@@ -3,8 +3,8 @@ import cProfile
 import os
 import pstats
 
-import data_prep as dp, statistics_functions as stf
-
+from . import data_prep as dp
+from . import statistics_functions as stf
 
 def load_and_prep(args, data_files_list):
 
