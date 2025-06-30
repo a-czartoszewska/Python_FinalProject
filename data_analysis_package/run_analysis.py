@@ -107,16 +107,18 @@ def corr_analysis(args, df_terr):
     else:
         corr_analysis_pow_gm(args, df_terr)
 
-def main(args):
+def run_analysis(args):
+    # file list
     data_files_list = ['data_population_' + args.territory_level + '.xls', 'data_area.xlsx', 'data_alcohol_stores.csv',
-                 'data_fire_events.csv']
-
+                       'data_fire_events.csv']
+    # get the merged dataset
     df_terr = load_and_prep(args, data_files_list)
+    # create basic stats df and plots
     basic_stats_and_plots(args, df_terr)
+    # perform corr analysis
     corr_analysis(args, df_terr)
 
-
-if __name__ == '__main__':
+def main(args):
     parser = argparse.ArgumentParser(description='Run final project analysis')
     parser.add_argument('data_folder', help='Path to the folder containing the data')
     parser.add_argument('output_folder', help='Path to the folder to save output plots and results')
@@ -126,4 +128,7 @@ if __name__ == '__main__':
                              'Possible values: g (for gmina), p (for powiat), v (for voivodship).')
     args = parser.parse_args()
 
-    main(args)
+    run_analysis(args)
+
+if __name__ == '__main__':
+    main()
