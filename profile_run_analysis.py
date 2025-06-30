@@ -1,8 +1,6 @@
 import cProfile
 import pstats
-from run_analysis import main
 import argparse
-import snakeviz
 
 args = argparse.Namespace(
     data_folder='data',

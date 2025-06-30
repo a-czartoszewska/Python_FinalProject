@@ -21,6 +21,8 @@ dependencies = [
     "seaborn"
 ]
 
+[project.scripts]
+run-analysis = "data_analysis_package.run_analysis:main"
 
 [tool.setuptools.packages.find]
 namespaces = false

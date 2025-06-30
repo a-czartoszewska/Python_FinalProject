@@ -1,6 +1,0 @@
-Test results for correlation between population and numer of fire events in a gmina: 
-0.95 3.7682265449499654e-188
-Test results for correlation between number of fire events and area of a gmina: 
-0.03 0.5116531530993997
-Test results for correlation between the density of population and fire events in a gmina: 
-0.93 2.155621055877962e-164

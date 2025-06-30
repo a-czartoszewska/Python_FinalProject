@@ -1,8 +1,0 @@
-Test results for correlation between population and numer of fire events: 
-0.92 3.0616297436299726e-07
-Test results for correlation between population and numer of alcohol stores: 
-0.88 6.186191238179417e-06
-Test results for correlation between number of alcohol stores and numer of fire events: 
-0.87 1.1194027416960717e-05
-Test results for correlation between the density of fires and alcohol stores in a voivodship: 
-0.71 0.0021911009588457047
