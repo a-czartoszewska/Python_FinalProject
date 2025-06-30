@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 import seaborn as sns
 import numpy as np
-from data_prep import columns_present
+from .data_prep import columns_present
 
 def statistics_table(df, cols=None):
     """ Returns a table with basic statistics: min, average, median (50%), max.
