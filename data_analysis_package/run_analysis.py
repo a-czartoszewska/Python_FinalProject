@@ -123,7 +123,7 @@ def main():
     parser.add_argument('data_folder', help='Path to the folder containing the data')
     parser.add_argument('output_folder', help='Path to the folder to save output plots and results')
     parser.add_argument('output_file', help='Filename to save correlation analysis results')
-    parser.add_argument('-t', '--territory_level',
+    parser.add_argument('-t', '--territory_level', default='v',
                         help='Territory level of the data. '
                              'Possible values: g (for gmina), p (for powiat), v (for voivodship).')
     args = parser.parse_args()

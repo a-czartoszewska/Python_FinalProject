@@ -6,6 +6,7 @@ This is a package made for analysing data regarding population, fire events, alc
 Features:
 ---------
 
+- Two modules for data preparation (`data_prep.py`) and statistics (`statistics_functions.py`)
 - Loads and merges data from a provided folder (data from official Polish public datasets)
 - Computes basic descriptive statistics
 - Generates barplots and normalized barplot for comparison (only at voivodship level)
@@ -28,11 +29,11 @@ Usage
 
 You can use the package in two ways:
 
-1. As a command-line script (via ``run_analysis.py``):
+1. As a command-line script (via ``run_analysis.py``, after importing the package in python):
 
 .. code-block:: bash
 
-   python run_analysis.py data output output_file.txt -t v
+   run-analysis data output output_file.txt -t v
 
 This will load input files from the ``data`` directory and save results (plots, stats) to ``output``. Results of the correlation tests will be saved in ``output_file.txt``. Analysis will be performed on the voivodship level (as indicated by ``v``, other possible values: ``p`` for powiat and ``g`` for gmina).
 
