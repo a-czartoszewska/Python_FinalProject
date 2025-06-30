@@ -13,6 +13,7 @@ Features:
 - Designed as a pip-installable package
 - Can be used in command-line (CLI) or in a Jupyter notebook
 - Includes unit tests (`test_data_prep.py`, `test_statistics_functions.py`)
+- Including profiling script (`profile_run_analysis.py`) and results of profilig (`profile.prof`)
 
 Data sources:
 ------------
