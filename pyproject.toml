@@ -9,7 +9,6 @@ description = "A package for data analysis"
 authors = [
     { name = "Anna Czartoszewska", email = "a.czartoszewsk@student.uw.edu.pl"}
 ]
-
 dynamic=["readme"]
 dependencies = [
     "pandas >= 1.3.0",
