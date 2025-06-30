@@ -16,8 +16,8 @@ dependencies = [
     "lxml",
     "xlrd >= 2.0.1",
     "openpyxl",
-    "matplotlib.pyplot",
-    "scipy.stats",
+    "matplotlib",
+    "scipy",
     "seaborn"
 ]
 
