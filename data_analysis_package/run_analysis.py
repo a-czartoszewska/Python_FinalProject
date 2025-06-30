@@ -3,7 +3,7 @@ import cProfile
 import os
 import pstats
 
-from data_analysis_package import data_prep as dp, statistics_functions as stf
+import data_prep as dp, statistics_functions as stf
 
 
 def load_and_prep(args, data_files_list):
