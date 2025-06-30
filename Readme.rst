@@ -17,10 +17,10 @@ Features:
 Data sources:
 ------------
 
-- [population]: https://stat.gov.pl/obszary-tematyczne/ludnosc/ludnosc/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2024-r-stan-w-dniu-31-12,6,38.html
-- [fire events]: https://dane.gov.pl/pl/dataset/4695/resource/64722/table?page=1&per_page=20&q=&sort=
-- [alcohol permits]: https://dane.gov.pl/pl/dataset/1191,informacja-o-przedsiebiorcach-posiadajacych-zezwolenia-na-handel-hurtowy-napojami-alkoholowymi-1/resource/64402/table?page=1&per_page=20&q=&sort=
-- [area (territory units' sizes)]: https://dane.gov.pl/pl/dataset/1447,oficjalny-wykaz-pol-powierzchni-geodezyjnych-wojewodztw-powiatow-i-gmin/resource/66239/table
+- Population: https://stat.gov.pl/obszary-tematyczne/ludnosc/ludnosc/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2024-r-stan-w-dniu-31-12,6,38.html
+- Fire events: https://dane.gov.pl/pl/dataset/4695/resource/64722/table?page=1&per_page=20&q=&sort=
+- Alcohol permits: https://dane.gov.pl/pl/dataset/1191,informacja-o-przedsiebiorcach-posiadajacych-zezwolenia-na-handel-hurtowy-napojami-alkoholowymi-1/resource/64402/table?page=1&per_page=20&q=&sort=
+- Area (territory units' sizes): https://dane.gov.pl/pl/dataset/1447,oficjalny-wykaz-pol-powierzchni-geodezyjnych-wojewodztw-powiatow-i-gmin/resource/66239/table
 
 Usage
 -----
