@@ -9,7 +9,8 @@ from data_analysis_package import data_prep as dp, statistics_functions as stf
 def load_and_prep(args, data_files_list):
 
     # load data
-    df_population_all, df_area_all, df_alcohol_all, df_fire_events_all = dp.load_data(args.data_folder, data_files_list)
+    df_population_all, df_area_all, df_alcohol_all, df_fire_events_all = (
+        dp.load_data(args.data_folder, data_files_list, pop_rows_skip=[0, 1, 2], area_usecols=[0, 1, 2, 3]))
 
     # choose relevant data in the datasets, drop NaNs when necessary and rename for consistency
     df_population, df_area, df_alcohol, df_fire_events = (
@@ -18,13 +19,7 @@ def load_and_prep(args, data_files_list):
 
     # aggregate all the data about the area
     territory_level = args.territory_level
-    if territory_level == 'v':
-        df_terr, *_ = (
-            dp.by_voivodship(df_population, df_area, df_alcohol, df_fire_events))
-    if territory_level == 'p':
-        df_terr, *_ = dp.by_powiat(df_population, df_area, df_fire_events)
-    if territory_level == 'g':
-        df_terr, *_ = dp.by_gmina(df_population, df_area, df_fire_events)
+    df_terr, *_ = dp.by_area(df_population, df_area, df_alcohol, df_fire_events, territory_level)
 
     return df_terr
 
@@ -32,7 +27,7 @@ def basic_stats_and_plots(args, df_terr):
 
     # basic statistics
     stat_table = stf.statistics_table(df_terr)
-    stat_table.to_csv(os.path.join(args.output_folder, 'statistics_table.csv'))
+    stat_table.to_csv(os.path.join(args.output_folder, 'statistics_table_'+args.territory_level+'.csv'))
     if args.territory_level == 'v':
         # basic barplots
         stf.barplots(df_terr, cols=['Area [km2]', 'Population', 'Total number of alcohol permits', 'Total number of fires'],
@@ -48,7 +43,7 @@ def basic_stats_and_plots(args, df_terr):
         cols = ['Total number of fires', 'Area [km2]', 'Population']
     stf.corr_plot(df_terr, cols,
                   output_folder=args.output_folder,
-                  filename='corr.png',
+                  filename='corr_'+args.territory_level+'.png',
                   show=False)
 
     # correlation plot for densities
@@ -60,7 +55,7 @@ def basic_stats_and_plots(args, df_terr):
     stf.density_corr_plot(df_terr.copy(), cols,
                           area='Area [km2]',
                           output_folder=args.output_folder,
-                          filename='density_corr.png',
+                          filename='density_corr_'+args.territory_level+'.png',
                           show=False)
 
 def corr_analysis_voi(args, df_voi):
@@ -129,6 +124,6 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--territory_level',
                         help='Territory level of the data. '
                              'Possible values: g (for gmina), p (for powiat), v (for voivodship).')
-    args = parser.parse_args(args=['data', 'output', 'output.txt', '-t', 'v'])
+    args = parser.parse_args()
 
     main(args)

@@ -8,17 +8,19 @@ Features:
 
 - Loads and merges data from a provided folder (data from official Polish public datasets)
 - Computes basic descriptive statistics
-- Generates bar plots and normalized comparisons
+- Generates barplots and normalized barplot for comparison (only at voivodship level)
 - Performs correlation analysis between variables
-- Designed as a pip-installable package with CLI support and notebook demos
+- Designed as a pip-installable package
+- Can be used in command-line (CLI) or in a Jupyter notebook
+- Includes unit tests (`test_data_prep.py`, `test_statistics_functions.py`)
 
 Data sources:
 ------------
 
-- population: https://stat.gov.pl/obszary-tematyczne/ludnosc/ludnosc/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2024-r-stan-w-dniu-31-12,6,38.html
-- fire events: https://dane.gov.pl/pl/dataset/4695/resource/64722/table?page=1&per_page=20&q=&sort=
-- alcohol permits: https://dane.gov.pl/pl/dataset/1191,informacja-o-przedsiebiorcach-posiadajacych-zezwolenia-na-handel-hurtowy-napojami-alkoholowymi-1/resource/64402/table?page=1&per_page=20&q=&sort=
-- area (voivodship sizes): https://dane.gov.pl/pl/dataset/1447,oficjalny-wykaz-pol-powierzchni-geodezyjnych-wojewodztw-powiatow-i-gmin/resource/66239/table
+- [population]: https://stat.gov.pl/obszary-tematyczne/ludnosc/ludnosc/ludnosc-stan-i-struktura-ludnosci-oraz-ruch-naturalny-w-przekroju-terytorialnym-w-2024-r-stan-w-dniu-31-12,6,38.html
+- [fire events]: https://dane.gov.pl/pl/dataset/4695/resource/64722/table?page=1&per_page=20&q=&sort=
+- [alcohol permits]: https://dane.gov.pl/pl/dataset/1191,informacja-o-przedsiebiorcach-posiadajacych-zezwolenia-na-handel-hurtowy-napojami-alkoholowymi-1/resource/64402/table?page=1&per_page=20&q=&sort=
+- [area (territory units' sizes)]: https://dane.gov.pl/pl/dataset/1447,oficjalny-wykaz-pol-powierzchni-geodezyjnych-wojewodztw-powiatow-i-gmin/resource/66239/table
 
 Usage
 -----
@@ -29,12 +31,11 @@ You can use the package in two ways:
 
 .. code-block:: bash
 
-   python scripts/run_analysis.py data output output_file.txt -t v
+   python run_analysis.py data output output_file.txt -t v
 
-This will load input files from the ``data`` directory and save results (plots, stats) to ``output``. Results of the correlation tests 
-will be saved in ``output_file.txt``. Analysis will be performed on the voivodship level (as indicated by ``v``).
+This will load input files from the ``data`` directory and save results (plots, stats) to ``output``. Results of the correlation tests will be saved in ``output_file.txt``. Analysis will be performed on the voivodship level (as indicated by ``v``, other possible values: ``p`` for powiat and ``g`` for gmina).
 
-2. Interactively through a Jupyter notebook (``notebooks/final_project.ipynb``).
+2. Interactively through a Jupyter notebook (``final_project.ipynb``).
 
 
 Requirements

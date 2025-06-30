@@ -8,7 +8,7 @@ from data_analysis_package import statistics_functions as stf
 # statistics_table()
 
 def test_statistics_table():
-
+    """ Tests if the function returns proper data """
     df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
     result = stf.statistics_table(df)
 
@@ -16,15 +16,24 @@ def test_statistics_table():
     assert result.loc['mean', 'A'] == 2.0
     assert '25%' not in result.index
 
+def test_statistics_table_cols():
+    """ Tests if the function returns proper data on only chosen columns"""
+    df = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
+    result = stf.statistics_table(df, cols=['A'])
+
+    assert 'B' not in result.columns
+
 def test_statistics_table_empty_df():
+    """ Tests if function raises appropriate error if DataFrame is empty """
     df = pd.DataFrame()
 
-    with pytest.raises(ValueError, match='The dataframe is empty.'):
+    with pytest.raises(ValueError, match='The DataFrame is empty.'):
         stf.statistics_table(df)
 
 # barplots()
 
 def test_barplots_creates_file(tmp_path):
+    """ Tests if the function works properly with valid data - if it creates a file """
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200],
@@ -38,6 +47,7 @@ def test_barplots_creates_file(tmp_path):
     assert output.exists()
 
 def test_barplots_one_column(tmp_path):
+    """ Tests if the function works with only one column """
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200]
@@ -49,18 +59,72 @@ def test_barplots_one_column(tmp_path):
 
     assert output.exists()
 
-def test_barplots_wrong_columns(tmp_path):
+def test_barplots_x_none(tmp_path):
+    """ Tests if the function works if x is None"""
+    df = pd.DataFrame({
+        'Region': ['A', 'B'],
+        'Population': [100, 200]
+    })
+    df.set_index('Region', inplace=True)
+
+    output = tmp_path / 'bars_x_none.png'
+    stf.barplots(df, cols=['Population'], save=True,
+                 output_folder=str(tmp_path), filename='bars_x_none.png', show=False)
+
+    assert output.exists()
+
+def test_barplots_cols_none(tmp_path):
+    """ Tests if the function works if cols is None"""
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200]
     })
 
-    with pytest.raises(ValueError, match='Some of the columns not in dataframe.'):
+    output = tmp_path / 'bars_cols_none.png'
+    stf.barplots(df, x='Region', save=True,
+                 output_folder=str(tmp_path), filename='bars_cols_none.png', show=False)
+
+    assert output.exists()
+
+def test_barplots_cols_x_none(tmp_path):
+    """ Tests if the function works if cols and x are None"""
+    df = pd.DataFrame({
+        'Region': ['A', 'B'],
+        'Population': [100, 200]
+    })
+    df.set_index('Region', inplace=True)
+
+    output = tmp_path / 'bars_cols_x_none.png'
+    stf.barplots(df, save=True,
+                 output_folder=str(tmp_path), filename='bars_cols_x_none.png', show=False)
+
+    assert output.exists()
+
+def test_barplots_too_many_bars(tmp_path):
+    """ Tests if the function raises an appropriate error when there are too many bars to plot """
+    df = pd.DataFrame({
+        'Region': [f'Region {i}' for i in range(31)],
+        'Population': range(31),
+        'Fires': range(31)
+    })
+
+    with pytest.raises(ValueError, match='There are more than 30 values'):
+        stf.barplots(df, x='Region', cols=['Population', 'Fires'], save=False, show=False)
+
+def test_barplots_wrong_columns(tmp_path):
+    """ Tests if the function raises and appropriate error when columns are not in the DataFrame """
+    df = pd.DataFrame({
+        'Region': ['A', 'B'],
+        'Population': [100, 200]
+    })
+
+    with pytest.raises(ValueError, match='Missing required column'):
         stf.barplots(df, x='Region', cols=['Population', 'Fires'], save=False, show=False)
 
 # normalised_barplot()
 
 def test_normalised_barplot_creates_file(tmp_path):
+    """ Tests if the function works properly with valid data - if it creates a file """
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200],
@@ -74,6 +138,7 @@ def test_normalised_barplot_creates_file(tmp_path):
     assert output.exists()
 
 def test_normalised_barplot_unchanged_original(tmp_path):
+    """ Test if the function leaves the original DataFrame unchanged """
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200],
@@ -90,6 +155,7 @@ def test_normalised_barplot_unchanged_original(tmp_path):
     assert df['Fires'].tolist() == [3, 5]
 
 def test_normalised_barplot_one_column(tmp_path):
+    """ Tests if the function works with only one column """
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200]
@@ -101,15 +167,45 @@ def test_normalised_barplot_one_column(tmp_path):
     assert output.exists()
 
 def test_normalised_barplot_wrong_columns(tmp_path):
+    """ Tests if the function raises and appropriate error when columns are not in the DataFrame """
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200]
     })
 
-    with pytest.raises(ValueError, match='Some of the columns not in dataframe.'):
+    with pytest.raises(ValueError, match='Missing required column'):
         stf.normalised_barplot(df, x='Region', cols=['Population', 'Fires'], save=False, show=False)
 
+def test_normalised_barplot_too_many_bars(tmp_path):
+    """ Tests if the function raises an appropriate error when there are too many bars to plot """
+    df = pd.DataFrame({
+        'Region': [f'Region {i}' for i in range(31)],
+        'Population': range(31),
+        'Fires': range(31)
+    })
+
+    with pytest.raises(ValueError, match='There are more than 30 values'):
+        stf.normalised_barplot(df, x='Region', cols=['Population', 'Fires'], save=False, show=False)
+
+def test_normalised_barplot_too_many_cols(tmp_path):
+    """ Tests if the function raises an appropriate error
+    when there are too many columns to compare """
+    df = pd.DataFrame({
+        'Region': [f'Region {i}' for i in range(25)],
+        'A': range(25),
+        'B': range(25),
+        'C': range(25),
+        'D': range(25),
+        'E': range(25),
+        'F': range(25),
+        'G': range(25)
+    })
+
+    with pytest.raises(ValueError, match='There are more than 6 columns to compare'):
+        stf.normalised_barplot(df, x='Region', cols=['A', 'B', 'C', 'D', 'E', 'F', 'G'], save=False, show=False)
+
 def test_normalised_barplot_zero_max(tmp_path):
+    """ Tests if function raises an appropriate error when max value of a column is zero """
     df = pd.DataFrame({
         'Region': ['A', 'B'],
         'Population': [100, 200],
@@ -122,6 +218,7 @@ def test_normalised_barplot_zero_max(tmp_path):
 # corr_plot()
 
 def test_corr_plot_creates_file(tmp_path):
+    """ Tests if the function works properly with valid data - if it creates a file """
     df = pd.DataFrame({
         'Region': ['A', 'B', 'C'],
         'Population': [100, 200, 300],
@@ -136,18 +233,20 @@ def test_corr_plot_creates_file(tmp_path):
     assert output.exists()
 
 def test_corr_plot_wrong_columns(tmp_path):
+    """ Tests if the function raises and appropriate error when columns are not in the DataFrame """
     df = pd.DataFrame({
         'Region': ['A', 'B', 'C'],
         'Population': [100, 200, 300],
         'Fires': [3, 5, 7]
     })
 
-    with pytest.raises(ValueError, match='Some of the columns not in dataframe.'):
+    with pytest.raises(ValueError, match='Missing required column'):
         stf.corr_plot(df, cols=['Population', 'Fires', 'Alcohol'], save=False, show=False)
 
 # corr_test()
 
 def test_corr_test_saves_output(tmp_path):
+    """ Tests if the function saves output in a file """
     x = pd.Series([1, 2, 3])
     y = pd.Series([2, 4, 6])
 
