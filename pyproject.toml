@@ -10,6 +10,9 @@ authors = [
     { name = "Anna Czartoszewska", email = "a.czartoszewsk@student.uw.edu.pl"}
 ]
 
+[project.scripts]
+run-analysis = "run_analysis:main"
+
 dynamic=["readme"]
 dependencies = [
     "pandas >= 1.3.0",
